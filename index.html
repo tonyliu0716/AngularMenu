@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhmtl">
+
+<head>
+    <title></title>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.7/angular.min.js"></script>
+    <script src="js/angular-route.min.js"></script>
+    <script src="Script.js"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
+    <link rel="stylesheet" href="Style.css" />
+</head>
+
+<body ng-app="myModel">
+    <div ng-controller="myController">
+        <div class="col-md-6 col-md-offset-3">
+
+            <h3>Search Engine</h3>
+
+            <div class="input-group">
+                <input type="text" class="form-control" placeholder="Search employee by name or email" aria-describedby="basic-addon2" ng-model="search.$">
+                <span class="input-group-addon glyphicon glyphicon-search" id="basic-addon2"></span>
+            </div>
+
+            <br/>
+
+            <div class="panel panel-default" ng-show="search.length !== 0" id="myTable" ng-if="flag == false">
+                <!-- Default panel contents -->
+                <div class="panel-heading">Matching Result:</div>
+
+                <!-- Table -->
+                <table class="table">
+                    <thead>
+                        <th>Name</th>
+                        <th>Date Of Birth</th>
+                        <th>Email</th>
+                        <th>Salary</th>
+                    </thead>
+                    <tbody>
+                        <tr ng-repeat="employee in employees | filter : search" ng-click="selectedEmp($index, employee)" ng-style="{'background': $index == selectedIndex ? 'lightgray' : ''}">
+                            <td>{{ employee.name }}</td>
+                            <td>{{ employee.dateOfBirth | date:"dd/MM/yy" }}</td>
+                            <td>{{ employee.email }}</td>
+                            <td>{{ employee.city }}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="panel panel-default" ng-if="flag == true">
+                <div class="panel-heading">Details:
+                    <button type="button" class="btn btn-primary" ng-click="changeTo()">Return</button>
+                </div>
+                <table class="table">
+                    <thead>
+
+                        <th>Name</th>
+                        <th>BirthDate</th>
+                        <th>Gender</th>
+                        <th>Email</th>
+                        <th>City</th>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>{{ selectedEmployee.name }}</td>
+                            <td>{{ selectedEmployee.dateOfBirth | date: "dd/MM/yy"}}</td>
+                            <td>{{ selectedEmployee.gender }}</td>
+                            <td>{{ selectedEmployee.email }}</td>
+                            <td>{{ selectedEmployee.city }}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+
+    </div>
+
+
+
+</body>
+
+</html>
